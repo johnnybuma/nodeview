@@ -1,0 +1,21 @@
+<!-- inside app/views/home/index.html.erb -->
+<div class="container">
+  <div class="card m-2 p-2">
+    <table class="table">
+      <% @response.each do |key, value| %>
+        <tr>
+          <th><%= key.to_s %></th>
+          <td><%= value.to_s %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <th>BLOCKS</th>
+        <td><%= @response['blocks'] %></td>
+      </tr>
+    </table>
+  </div>
+  <div class="card m-2 p-2 mt-4">
+    <%= @result['result']['blocks'] %>
+  </div>
+</div>
+
