@@ -15,7 +15,37 @@
     </table>
   </div>
   <div class="card m-2 p-2 mt-4">
-    <%= @result['result']['blocks'] %>
+    <strong>Block Height: </strong><%= @getblockchaininfo['result']['blocks'] %>
+    <hr>
+    <h3>Balances:</h3>
+    <table class="table">
+      <% @getbalances['result'].each do |key, val| %>
+        <tr>
+          <th><%= key.to_s %></th>
+          <td>
+            <% val.each do |k, v| %>
+              <%= k.to_s + ": " + v.to_s%>
+            <% end %>
+          </td>
+        </tr>
+
+      <% end %>
+    </table>
+
   </div>
+
+  <div class="card m-2 p-2 mt-4">
+    <h1>Wallets</h1>
+    <hr>
+    <% @listwallets['result'].each do |wallet| %>
+      <%= wallet %>
+    <% end %>
+
+
+    <hr>
+    <%= render 'create_wallet' %>
+
+  </div>
+
 </div>
 

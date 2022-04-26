@@ -8,6 +8,9 @@ class HomeController < ApplicationController
 
     @cookie_file.close
 
+    @urlstring_to_post = "http://"  + @cookie_data.to_s + "@192.168.1.36:8332/"
+
+
     @chain_uri = 'http://192.168.1.36:8332/rest/chaininfo.json'
 
     @response = HTTParty.get(@chain_uri)
@@ -17,9 +20,8 @@ class HomeController < ApplicationController
     @tx_res = HTTParty.get(@transaction_uri)
 
 
-    @urlstring_to_post = "http://"  + @cookie_data.to_s + "@192.168.1.36:8332/"
 
-    @result = HTTParty.post(@urlstring_to_post.to_str,
+    @getblockchaininfo = HTTParty.post(@urlstring_to_post.to_str,
                             :body => { :jsonrpc => '1.0',
                                        :id => 'curltext',
                                        :method => 'getblockchaininfo',
@@ -27,6 +29,44 @@ class HomeController < ApplicationController
                             }.to_json,
                             :headers => { 'Content-Type' => 'application/json' } )
 
+    @listwallets = HTTParty.post(@urlstring_to_post.to_str,
+                            :body => { :jsonrpc => '1.0',
+                                       :id => 'curltext',
+                                       :method => 'listwallets',
+                                       :params => []
+                            }.to_json,
+                            :headers => { 'Content-Type' => 'application/json' } )
+
+
+
+    @getbalances = HTTParty.post(@urlstring_to_post + "wallet/MAKO-NODE".to_str,
+                                 :body => { :jsonrpc => '1.0',
+                                            :id => 'curltext',
+                                            :method => 'getbalances'
+                                 }.to_json,
+                                 :headers => { 'Content-Type' => 'application/json' } )
+
+
+
+  end
+
+  def create_wallet
+
+    @cookie_file = File.open("/mnt/BTC-DATA/.cookie")
+
+    @cookie_data = @cookie_file.read
+
+    @cookie_file.close
+
+    @urlstring_to_post = "http://"  + @cookie_data.to_s + "@192.168.1.36:8332/"
+
+    @createwallet = HTTParty.post(@urlstring_to_post.to_str,
+                                 :body => { :jsonrpc => '1.0',
+                                            :id => 'curltext',
+                                            :method => 'createwallet',
+                                            :params => [params['wallet_name']]
+                                 }.to_json,
+                                 :headers => { 'Content-Type' => 'application/json' } )
 
 
 

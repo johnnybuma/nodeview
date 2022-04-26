@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   get "home/index"
   root to: "home#index"
 
+  post "home/create_wallet"
+  get "home/create_wallet"
 
 end
