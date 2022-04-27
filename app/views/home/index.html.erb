@@ -37,9 +37,45 @@
   <div class="card m-2 p-2 mt-4">
     <h1>Wallets</h1>
     <hr>
-    <% @listwallets['result'].each do |wallet| %>
-      <%= wallet %>
-    <% end %>
+    <table class="table">
+      <tr><th>Wallets</th></tr>
+      <% @listwallets['result'].each do |wallet| %>
+        <%
+
+          @walletinfo = HTTParty.post((@urlstring_to_post + "wallet/" + wallet.to_s).to_str,
+                                       :body => { :jsonrpc => '1.0',
+                                                  :id => 'curltext',
+                                                  :method => 'getwalletinfo',
+                                                  :params => []
+                                       }.to_json,
+                                       :headers => { 'Content-Type' => 'application/json' } )
+        %>
+
+
+        <tr>
+          <th><%= wallet %></th>
+          <td>
+            <table class="table">
+              <% @walletinfo['result'].each do |key, val| %>
+
+                <tr>
+                  <th><%= key.to_s %></th>
+                  <td><%= val.to_s %></td>
+                </tr>
+
+              <% end %>
+            </table>
+
+          </td>
+        </tr>
+
+
+
+
+
+      <% end %>
+    </table>
+
 
 
     <hr>
