@@ -1,0 +1,56 @@
+<%= form_with(model: wallet) do |form| %>
+  <% if wallet.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(wallet.errors.count, "error") %> prohibited this wallet from being saved:</h2>
+
+      <ul>
+        <% wallet.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :wallet_name, style: "display: block" %>
+    <%= form.text_field :wallet_name %>
+  </div>
+
+  <div>
+    <%= form.label :disable_private_keys, style: "display: block" %>
+    <%= form.check_box :disable_private_keys %>
+  </div>
+
+  <div>
+    <%= form.label :blank, style: "display: block" %>
+    <%= form.check_box :blank %>
+  </div>
+
+  <div>
+    <%= form.label :passphrase, style: "display: block" %>
+    <%= form.text_field :passphrase %>
+  </div>
+
+  <div>
+    <%= form.label :avoid_reuse, style: "display: block" %>
+    <%= form.text_field :avoid_reuse %>
+  </div>
+
+  <div>
+    <%= form.label :descriptors, style: "display: block" %>
+    <%= form.check_box :descriptors %>
+  </div>
+
+  <div>
+    <%= form.label :load_on_startup, style: "display: block" %>
+    <%= form.check_box :load_on_startup %>
+  </div>
+
+
+    <%= form.hidden_field :post_request_uri, :value => @url_string_to_post %>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

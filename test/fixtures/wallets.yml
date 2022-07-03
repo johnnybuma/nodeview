@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wallet_name: MyString
+  disable_private_keys: false
+  blank: false
+  passphrase: MyString
+  avoid_reuse: MyString
+  descriptors: false
+  load_on_startup: false
+  post_request_uri: MyString
+
+two:
+  wallet_name: MyString
+  disable_private_keys: false
+  blank: false
+  passphrase: MyString
+  avoid_reuse: MyString
+  descriptors: false
+  load_on_startup: false
+  post_request_uri: MyString
